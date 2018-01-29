@@ -1,8 +1,11 @@
+
 /**
  * Created by dansong on 1/28/2018.
  */
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 public class Gomoku {
     private int color;
@@ -13,10 +16,14 @@ public class Gomoku {
     }
 
     //Function that implements the gomoka game
-    void makeMove(){
-        if(!fileExists("g1.go"))
+    void makeMove() throws Exception{
+        if(!fileExists("g1.go")) {
+            System.out.println("no .go file");
             return;
-
+        }
+        BufferedReader br = new BufferedReader(new FileReader("move_file"));
+        String input = br.readLine();
+        System.out.println(input);
     }
 
     private void setColor(int color){
@@ -42,7 +49,7 @@ public class Gomoku {
     }
 
     //Function that prints the current state of the game board.
-    void printBoard(){
+    public void printBoard(){
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++)
                 System.out.print(board[i][j]);
