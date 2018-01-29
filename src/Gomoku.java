@@ -10,10 +10,13 @@ import java.util.StringTokenizer;
 
 public class Gomoku {
     private int color;
+    private int oppColor;
     private int[][]board = new int[15][15];
 
-    public Gomoku(int pColor){
-        color = pColor;
+    public Gomoku(int playerColor, int opponentColor){
+
+        color = playerColor;
+        oppColor = opponentColor;
     }
 
     //Function that implements the gomoka game
@@ -33,7 +36,7 @@ public class Gomoku {
         x = st.nextToken().charAt(0) - '@';
         y = st.nextToken().charAt(0) - '0';
 
-        placePiece(x,y);
+        placePiece(x,y, oppColor);
     }
 
     private void setColor(int color){
@@ -41,9 +44,9 @@ public class Gomoku {
     }
 
     //Function that places a piece on the board if the move is legal
-    private boolean placePiece(int x, int y){
+    private boolean placePiece(int x, int y, int color){
         if(board[y][x] == 0 && x < 15 && x >= 0 && y >= 0 && y < 15) {
-            board[y - 1][x - 1] = this.color;
+            board[y - 1][x - 1] = color;
             return true;
         }
         return false;
