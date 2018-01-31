@@ -7,6 +7,7 @@ public class Player {
     private int color;
     private int oppColor;
     private Board board;
+    private Node mmTable;
 
     //Function that implements the gomoka game
     void makeMove() throws Exception{
@@ -29,6 +30,10 @@ public class Player {
 
         board.placePiece(x,y, oppColor);
     }
+
+/*    private Move findBestMove(int depth, int max, int min, boolean isMaxPlayer){
+        if(depth )
+    }*/
 
     //Function that returns true if a file exists in the current path;
     //returns false otherwise.  Probably should just move this to main function.

@@ -5,13 +5,12 @@
  */
 public class main {
     public static void main(String args[]){
-        Gomoku p1 = new Gomoku(1);
-        p1.printBoard();
+        Board p1 = new Board();
         try{
-            p1.makeMove();
+            //p1.makeMove();
         }catch (Exception e){
             System.out.println("exception handle");
         }
-
+        p1.printBoard();
     }
 }
