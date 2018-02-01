@@ -23,6 +23,16 @@ public class Board {
             for (int j = 0; j < board[0].length; j++)
                 board[i][j] = 0;
     }
+    public Board(Board origBoard){
+        for(int i = 0; i < board.length; i++)
+            for (int j = 0; j < board[0].length; j++)
+                board[i][j] = origBoard.getValue(i, j);
+    }
+
+
+    private int getValue(int x, int y){
+        return board[y][x];
+    }
 
     //Function that places a piece on the board if the move is legal
     boolean placePiece(int x, int y, int color){
@@ -45,15 +55,19 @@ public class Board {
     public int getHeuristic(int color){
         int heuristic = 0;
         for(int len = 2; len < 5; len++){
-            heuristic += findSequences(color, len);
+            //multiplies by length to value longer sequences over shorter ones
+            heuristic += (findSequences(color, len) * len);
         }
+        //if there is a sequence of length 5, the game is won.  Heavily prioritized
+        if((findSequences(color, 5)) > 0)
+            heuristic = Integer.MAX_VALUE;
         return heuristic;
     }
 
     //Note: does not return the actual number of sequences,
     //but the number of sequences + a modifier based on whether
     //or not the sequence is capped.
-    private int findSequences(int color, int len){
+    int findSequences(int color, int len){
         int numSeq = 0;
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {

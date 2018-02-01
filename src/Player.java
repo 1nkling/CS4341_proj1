@@ -7,7 +7,18 @@ public class Player {
     private int color;
     private int oppColor;
     private Board board;
-    private Node mmTable;
+    //private Node mmTable;
+
+    Player(int color, int oppColor){
+        this.color = color;
+        this.oppColor = oppColor;
+        this.board = new Board();
+    }
+    Player(int color, int oppColor, Board board){
+        this.color = color;
+        this.oppColor = oppColor;
+        this.board = new Board(board);
+    }
 
     //Function that implements the gomoka game
     void makeMove() throws Exception{
@@ -32,8 +43,10 @@ public class Player {
         board.placePiece(x,y, oppColor);
     }
 
-/*    private Move findBestMove(int depth, int max, int min, boolean isMaxPlayer){
-        if(depth )
+/*    private Move findBestMove(Board board, int depth, int max, int min, boolean thisPlayer){
+        if(depth == 0 || board.findSequences(color, 5) > 0){
+
+        }
     }*/
 
     //Function that returns true if a file exists in the current path;
