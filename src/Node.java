@@ -40,6 +40,8 @@ public class Node {
             //var = max(var, findBestMove())
             for(int i = 0; i < DIMS; i++){
                 for(int j = 0; j < DIMS; j++){
+                    if(!board.isValid(j, i))
+                        continue;
                     Move lastM = new Move(j, i);
                     Board newBoard = new Board(n.board);
                     newBoard.placePiece(lastM, isMaxPlayer?maxPlayerColor:minPlayerColor);
@@ -57,6 +59,8 @@ public class Node {
             //var = max(var, findBestMove())
             for(int i = 0; i < DIMS; i++){
                 for(int j = 0; j < DIMS; j++){
+                    if(!board.isValid(j, i))
+                        continue;
                     Move lastM = new Move(j, i);
                     Board newBoard = new Board(n.board);
                     newBoard.placePiece(lastM, isMaxPlayer?maxPlayerColor:minPlayerColor);
