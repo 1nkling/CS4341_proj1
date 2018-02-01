@@ -27,12 +27,12 @@ public class Node {
         board = b;
     }
 
-    int findBestMove(Node n){
-        if(depth == 0 || board.findSequences(n.maxPlayerColor, 5) > 0 || board.findSequences(n.minPlayerColor, 5) > 0){
+    static int findBestMove(Node n){
+        if(n.depth == 0 || n.board.findSequences(n.maxPlayerColor, 5) > 0 || n.board.findSequences(n.minPlayerColor, 5) > 0){
             if(n.isMaxPlayer)
-                HeuristicVal = board.getHeuristic(n.maxPlayerColor) - board.getHeuristic(n.minPlayerColor);
+                n.HeuristicVal = n.board.getHeuristic(n.maxPlayerColor) - n.board.getHeuristic(n.minPlayerColor);
             else
-                HeuristicVal = board.getHeuristic(n.minPlayerColor) - board.getHeuristic(n.maxPlayerColor);
+                n.HeuristicVal = n.board.getHeuristic(n.minPlayerColor) - n.board.getHeuristic(n.maxPlayerColor);
             return n.HeuristicVal;
         }
         if(n.isMaxPlayer){
@@ -40,11 +40,11 @@ public class Node {
             //var = max(var, findBestMove())
             for(int i = 0; i < DIMS; i++){
                 for(int j = 0; j < DIMS; j++){
-                    if(!board.isValid(j, i))
+                    if(!n.board.isValid(j, i))
                         continue;
                     Move lastM = new Move(j, i);
                     Board newBoard = new Board(n.board);
-                    newBoard.placePiece(lastM, isMaxPlayer?maxPlayerColor:minPlayerColor);
+                    newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
                     Node newN = new Node(0, n.depth + 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
                     var = Math.max(var, findBestMove(newN));
                     n.min = Math.max(n.min, var);
@@ -59,11 +59,11 @@ public class Node {
             //var = max(var, findBestMove())
             for(int i = 0; i < DIMS; i++){
                 for(int j = 0; j < DIMS; j++){
-                    if(!board.isValid(j, i))
+                    if(!n.board.isValid(j, i))
                         continue;
                     Move lastM = new Move(j, i);
                     Board newBoard = new Board(n.board);
-                    newBoard.placePiece(lastM, isMaxPlayer?maxPlayerColor:minPlayerColor);
+                    newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
                     Node newN = new Node(0, n.depth + 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
                     var = Math.max(var, findBestMove(newN));
                     n.min = Math.max(n.min, var);
