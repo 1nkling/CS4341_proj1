@@ -16,7 +16,7 @@ public class Node {
 
     Node(int h, int d, int max, int min, int c1, int c2, boolean isM, Move last, Node p, Board b){
         HeuristicVal = h;
-        depth = d;
+        depth = d; //depth remaining
         this.max = max;
         this.min = min;
         maxPlayerColor = c1;
@@ -45,7 +45,7 @@ public class Node {
                     Move lastM = new Move(j, i);
                     Board newBoard = new Board(n.board);
                     newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
-                    Node newN = new Node(0, n.depth + 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
+                    Node newN = new Node(0, n.depth - 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
                     var = Math.max(var, findBestMove(newN));
                     n.min = Math.max(n.min, var);
                     if(n.min <= n.max)
@@ -64,7 +64,7 @@ public class Node {
                     Move lastM = new Move(j, i);
                     Board newBoard = new Board(n.board);
                     newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
-                    Node newN = new Node(0, n.depth + 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
+                    Node newN = new Node(0, n.depth - 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
                     var = Math.max(var, findBestMove(newN));
                     n.min = Math.max(n.min, var);
                     if(n.min <= n.max)
