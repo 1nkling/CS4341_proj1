@@ -47,15 +47,62 @@ public class Board {
         return 0;
     }
 
-    private int findSequences(int color){
+    private int findSequences(int color, int len){
+        int numSeq = 0;
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if(board[i][j] == color){
+                int currI = i;
+                int currJ = j;
+                Move head = new Move(j, i);
+                Move tail;
+                int count = 0;
+                while(board[currI][currJ] == 0 && isValid(i, j)) {
+                    if (board[i][j] != color) {
+                        break;
+                    }
+                    if (i > 0) {
+                        if (board[i - 1][j] == color) {
 
+                        }
+                    }
                 }
             }
         }
         return 0;
+    }
+
+    //returns 0 if a diagonal was not found @ the coord,
+    //returns 1 if a diagonal was found, but is capped at 1 end,
+    //returns 2 if a diagonal was found and is not capped.
+    private int findDiagonalSeq(int x, int y, int color, int len){
+        int retVal = 0;
+        int count = 0;
+        int tempX = x;
+        int tempY = y;
+        //Cannot start searching for diagonal within a sequence;
+        //must start at head.
+        if(isValid(tempX - 1, tempY - 1) && board[tempY - 1][tempX - 1] == color)
+            return retVal;
+        else if(board[tempY - 1][tempX - 1] == 0){
+            retVal++;
+        }
+        while(isValid(tempX, tempY)){
+            if(board[tempY][tempX] == color){
+                tempY++;
+                tempX++;
+                count++;
+                if(count == len){
+                    //if a diagonal is found but the length exceeds what is desired,
+                    //it does not qualify.
+                    if(isValid(tempX + 1, tempY + 1) && board[tempY + 1][tempX + 1] == color)
+                        return 0;
+                    else if(board[tempY + 1][tempX + 1] == 0){
+                        retVal++;
+                    }
+                }
+            }
+        }
+        return retVal;
     }
 
     //Function that returns distance
@@ -63,7 +110,12 @@ public class Board {
         return Math.abs(m.x - DIMS/2) + Math.abs(m.y - DIMS/2);
     }
 
+    public boolean isValid(int x, int y){
+        return x < DIMS && x >= 0 && y >= 0 && y < DIMS;
+    }
+
     public static void main(String args[]){
+        Board b = new Board();
         HashSet<Move> test = new HashSet<>();
         test.add(new Move(1,1));
         test.add(new Move(1,1));
@@ -71,5 +123,6 @@ public class Board {
         test.add(new Move(1,2));
         test.add(new Move(2,1));
         System.out.println(test.size());
+        b.printBoard();
     }
 }
