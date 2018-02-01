@@ -43,6 +43,14 @@ public class Board {
         return false;
     }
 
+    boolean placePiece(Move m, int color){
+        if(board[m.y][m.x] == 0 && m.x < 15 && m.x >= 0 && m.y >= 0 && m.y < 15) {
+            board[m.y][m.x] = color;
+            return true;
+        }
+        return false;
+    }
+
     //Function that prints the current state of the game board.
     public void printBoard(){
         for(int i = 0; i < board.length; i++) {
