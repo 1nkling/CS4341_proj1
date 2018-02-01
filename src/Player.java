@@ -25,8 +25,9 @@ public class Player {
 
         StringTokenizer st = new StringTokenizer(input);
         st.nextToken();
-        x = st.nextToken().charAt(0) - '@';
-        y = st.nextToken().charAt(0) - '0';
+        // - 1 because their axes start at "1"
+        x = st.nextToken().charAt(0) - '@' - 1;
+        y = st.nextToken().charAt(0) - '0' - 1;
 
         board.placePiece(x,y, oppColor);
     }
