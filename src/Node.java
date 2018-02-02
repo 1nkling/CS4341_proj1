@@ -24,6 +24,8 @@ public class Node {
         board = b;
     }
 
+    //remember to determine heuristics for each color!
+
     int findBestMove(Node n){
         if(depth == 0 || board.findSequences(color, 5) > 0){
             return n.HeuristicVal;
