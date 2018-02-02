@@ -4,17 +4,21 @@ import java.io.File;
 import java.util.StringTokenizer;
 
 public class Player {
+    String name;
     private int color;
     private int oppColor;
+    private int searchDepth;
     private Board board;
-    //private Node mmTable;
+    private Node mmTree;
 
-    Player(int color, int oppColor){
+    Player(String name, int color, int oppColor){
+        this.name = name;
         this.color = color;
         this.oppColor = oppColor;
         this.board = new Board();
     }
-    Player(int color, int oppColor, Board board){
+    Player(String name, int color, int oppColor, Board board){
+        this.name = name;
         this.color = color;
         this.oppColor = oppColor;
         this.board = new Board(board);
@@ -26,36 +30,9 @@ public class Player {
         int y;
 
         //unlikely that this functionality remains here; makes more sense to be in main
-        if(!fileExists("g1.go")) {
-            System.out.println("no .go file");
-            return;
-        }
-        BufferedReader br = new BufferedReader(new FileReader("move_file"));
-        String input = br.readLine();
-        System.out.println(input);
 
-        StringTokenizer st = new StringTokenizer(input);
-        st.nextToken();
-        // - 1 because their axes start at "1"
-        x = st.nextToken().charAt(0) - '@' - 1;
-        y = st.nextToken().charAt(0) - '0' - 1;
-
-        board.placePiece(x,y, oppColor);
+        //board.placePiece(x,y, oppColor);
     }
 
-/*    private Move findBestMove(Board board, int depth, int max, int min, boolean thisPlayer){
-        if(depth == 0 || board.findSequences(color, 5) > 0){
-
-        }
-    }*/
-
-    //Function that returns true if a file exists in the current path;
-    //returns false otherwise.  Probably should just move this to main function.
-    boolean fileExists(String path){
-        File f = new File(path);
-        if(f.exists() && !f.isDirectory())
-            return true;
-        return false;
-    }
 
 }
