@@ -8,22 +8,23 @@ import static java.lang.Thread.sleep;
  */
 public class main {
     public static void main(String args[]){
-        Player p1 = new Player("g1", 1, 2, new Board());
-        while(!fileExists("g1.go")) {
-            System.out.println("no .go file");
+        Player p1 = new Player("g1", 1, 2, new Board(), 5);
+        Move m = new Move(-1,-1);
+        while(!fileExists("end_game")) {
             try {
-                sleep(200);
+                m = readFrom("move_file", p1.name);
             }
             catch (Exception e){
-                System.out.println("interrupted");
+                System.out.println("no file exists");
+                try {
+                    sleep(150);
+                }
+                catch (Exception e2){
+                    System.out.println("sleep interrupted");
+                }
+                continue;
             }
-        }
-        Move m = new Move(-1,-1);
-        try {
-            m = readFrom("move_file", p1.name);
-        }
-        catch (Exception e){
-            System.out.println("no file exists");
+            p1.placePiece(m, false);
         }
 
         System.out.println(m.x + " " + m.y);
@@ -62,18 +63,11 @@ public class main {
         return new Move(x, y);
     }
 
-/*    static boolean makeMove(String path, String name) throws Exception{
+    static boolean makeMove(String path, String move) throws IOException{
         BufferedWriter br = new BufferedWriter(new FileWriter(path));
-        String input = br.readLine();
-        System.out.println(input);
+        String output = "hello";
+        br.write(output);
 
-        StringTokenizer st = new StringTokenizer(input);
-        String targetN = st.nextToken();
-        if(!targetN.equals(name))
-            return null;
-        // - 1 because their axes start at "1"
-        int x = st.nextToken().charAt(0) - '@' - 1;
-        int y = st.nextToken().charAt(0) - '0' - 1;
-        return new Move(x, y);
-    }*/
+        return true;
+    }
 }

@@ -47,6 +47,7 @@ public class Node {
                     Board newBoard = new Board(n.board);
                     newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
                     Node newN = new Node(0, n.depth - 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
+                    n.children.add(newN);
                     var = Math.max(var, findBestMove(newN));
                     n.min = Math.max(n.min, var);
                     if(n.min <= n.max)
@@ -66,6 +67,7 @@ public class Node {
                     Board newBoard = new Board(n.board);
                     newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
                     Node newN = new Node(0, n.depth - 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
+                    n.children.add(newN);
                     var = Math.max(var, findBestMove(newN));
                     n.min = Math.max(n.min, var);
                     if(n.min <= n.max)

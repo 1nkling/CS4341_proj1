@@ -5,33 +5,25 @@ import java.util.StringTokenizer;
 
 public class Player {
     String name;
-    private int color;
-    private int oppColor;
-    private int searchDepth;
-    private Board board;
     private Node mmTree;
 
     Player(String name, int color, int oppColor){
         this.name = name;
-        this.color = color;
-        this.oppColor = oppColor;
-        this.board = new Board();
+        this.mmTree = new Node(0, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, color, oppColor, true, null, null, new Board());
+
     }
-    Player(String name, int color, int oppColor, Board board){
+    Player(String name, int color, int oppColor, Board board, int depth){
         this.name = name;
-        this.color = color;
-        this.oppColor = oppColor;
-        this.board = new Board(board);
+        this.mmTree = new Node(0, depth, Integer.MAX_VALUE, Integer.MAX_VALUE, color, oppColor, true, null, null, board);
+    }
+
+    boolean placePiece(Move m, boolean isMaxPlayer){
+        return mmTree.board.placePiece(m.x, m.y, mmTree.isMaxPlayer?mmTree.maxPlayerColor:mmTree.minPlayerColor);
     }
 
     //Function that implements the gomoka game
-    void makeMove() throws Exception{
-        int x;
-        int y;
-
-        //unlikely that this functionality remains here; makes more sense to be in main
-
-        //board.placePiece(x,y, oppColor);
+    void makeMove(int depth){
+        Node.findBestMove(mmTree);
     }
 
 
