@@ -22,9 +22,40 @@ public class Player {
     }
 
     //Function that implements the gomoka game
-    void makeMove(int depth){
+    void buildTree(){
+        //System.out.println(Node.findBestMove(mmTree));
         Node.findBestMove(mmTree);
     }
+
+    Move getBestMove(){
+        int maxHeuristic = Integer.MIN_VALUE;
+        //this should not be necessary; make Node comparable by HeuristicValue!
+        /*for(Node child : mmTree.children){
+            System.out.println(child.max);
+            if(child.max > maxHeuristic){
+                maxHeuristic = child.max;
+            }
+        }
+        for(Node child : mmTree.children){
+            if(child.max == maxHeuristic){
+                return child.lastMove;
+            }
+        }*/
+        for(Node child : mmTree.children){
+            //System.out.println(child.max);
+            if(child.max > maxHeuristic){
+                maxHeuristic = child.max;
+            }
+        }
+        for(Node child : mmTree.children){
+            if(child.max == maxHeuristic){
+                return child.lastMove;
+            }
+        }
+        return null;
+    }
+
+    //void findBestMove
 
 
 }

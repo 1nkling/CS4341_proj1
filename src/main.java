@@ -25,6 +25,14 @@ public class main {
                 continue;
             }
             p1.placePiece(m, false);
+            p1.buildTree();
+            try {
+                makeMove("move_file", p1.getBestMove(), p1.name);
+            }
+            catch (IOException e){
+                System.out.println("move_file doesn't exist");
+            }
+            break;
         }
 
         System.out.println(m.x + " " + m.y);
@@ -63,11 +71,14 @@ public class main {
         return new Move(x, y);
     }
 
-    static boolean makeMove(String path, String move) throws IOException{
+    static boolean makeMove(String path, Move move, String name) throws IOException{
         BufferedWriter br = new BufferedWriter(new FileWriter(path));
-        String output = "hello";
+        char x = (char)(move.x + '@' + 1);
+        char y = (char)(move.y + '0' + 1);
+        String output = name + " " + x + " " + y;
         br.write(output);
 
         return true;
     }
+
 }

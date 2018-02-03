@@ -116,10 +116,10 @@ public class Board {
                 //if a diagonal is found but the length exceeds what is desired,
                 //it does not qualify.
                 if(isValid(tempX, tempY + 1) && board[tempY][tempX] == color) {
-                    System.out.println("RetVal: " + retVal);
+                    //System.out.println("RetVal: " + retVal);
                     return 0;
                 }
-                else if(board[tempY][tempX] == 0){
+                else if(isValid(tempX, tempY) && board[tempY][tempX] == 0){
                     retVal++;
                 }
                 break;
@@ -159,7 +159,7 @@ public class Board {
                 if(isValid(tempX, tempY) && board[tempY][tempX] == color) {
                     return 0;
                 }
-                else if(board[tempY][tempX] == 0){
+                else if(isValid(tempX, tempY) && board[tempY][tempX] == 0){
                     retVal++;
                 }
                 break;
@@ -196,7 +196,7 @@ public class Board {
                 //it does not qualify.
                 if (isValid(tempX, tempY) && board[tempY][tempX] == color)
                     return 0;
-                else if (board[tempY][tempX] == 0) {
+                else if (isValid(tempX, tempY) && board[tempY][tempX] == 0) {
                     retVal++;
                 }
                 break;
@@ -235,7 +235,7 @@ public class Board {
                 //it does not qualify.
                 if (isValid(tempX, tempY) && board[tempY][tempX] == color)
                     return 0;
-                else if (board[tempY][tempX] == 0) {
+                else if (isValid(tempX, tempY) && board[tempY][tempX] == 0) {
                     retVal++;
                 }
                 break;
