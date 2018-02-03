@@ -1,6 +1,8 @@
+
 import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Node {
@@ -30,7 +32,6 @@ public class Node {
         board = b;
         children = new ArrayList<>();
     }
-
 
     static int findBestMove(Node n){
         if(n.depth == 0 || n.board.findSequences(n.maxPlayerColor, 5) > 0 || n.board.findSequences(n.minPlayerColor, 5) > 0){
@@ -84,24 +85,57 @@ public class Node {
             return var;
         }
     }
-
-    public static void main(String args[]){
-        Board b = new Board();
-        b.placePiece(3, 2, 1);
-        b.placePiece(4, 3, 1);
-        b.placePiece(5, 4, 1);
-        b.placePiece(6, 10, 1);
-        b.placePiece(4, 10, 1);
-        b.placePiece(5, 10, 1);
-        b.placePiece(3, 10, 2);
-        b.placePiece(0, 10, 1);
-        b.placePiece(1, 10, 1);
-        b.placePiece(2, 10, 1);
-        b.printBoard();
-        Player p1 = new Player("g1", 1, 2, b, 2);
-        System.out.println(p1.name);
-        p1.buildTree();
-        System.out.println(p1.getBestMove().x + " " + p1.getBestMove().y);
+/*
+    static int findBestMove(Node n){
+        if(n.depth == 0 || n.board.findSequences(n.maxPlayerColor, 5) > 0 || n.board.findSequences(n.minPlayerColor, 5) > 0){
+            if(n.isMaxPlayer)
+                n.HeuristicVal = n.board.getHeuristic(n.maxPlayerColor) - n.board.getHeuristic(n.minPlayerColor);
+            else
+                n.HeuristicVal = n.board.getHeuristic(n.minPlayerColor) - n.board.getHeuristic(n.maxPlayerColor);
+            return n.HeuristicVal;
+        }
+        if(n.isMaxPlayer){
+            int var = Integer.MIN_VALUE;
+            HashSet<Node> possibleNodeSet = getPossibleNodes(n);
+            for (Node possibleNode : possibleNodeSet) {
+                n.children.add(possibleNode);
+                var = Math.max(var, findBestMove(possibleNode));
+                n.min = Math.max(n.min, var);
+                if(n.min <= n.max)
+                    return var;
+            }
+            return var;
+        }
+        else{
+            int var = Integer.MAX_VALUE;
+            HashSet<Node> possibleNodeSet = getPossibleNodes(n);
+            for (Node possibleNode : possibleNodeSet) {
+                n.children.add(possibleNode);
+                var = Math.max(var, findBestMove(possibleNode));
+                n.min = Math.max(n.min, var);
+                if(n.min <= n.max)
+                    return var;
+            }
+            return var;
+        }
     }
-
+    
+    static HashSet<Node> getPossibleNodes(Node n) {
+    		HashSet<Node> possibleNodes = new HashSet<Node>();
+    	
+        for(int i = 0; i < DIMS; i++){
+            for(int j = 0; j < DIMS; j++){
+                if(!n.board.isValid(j, i))
+                    continue;
+                Move lastM = new Move(j, i);
+                Board newBoard = new Board(n.board);
+                newBoard.placePiece(lastM, n.isMaxPlayer?n.maxPlayerColor:n.minPlayerColor);
+                Node newN = new Node(0, n.depth - 1, n.max, n.min, n.maxPlayerColor, n.minPlayerColor, !n.isMaxPlayer, lastM, n, newBoard);
+                
+                possibleNodes.add(newN);
+            }
+        }
+        
+        return possibleNodes;
+    }*/
 }
