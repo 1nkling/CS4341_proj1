@@ -11,12 +11,6 @@ public class Board {
     private static final int DIMS = 15;
     private int[][]board = new int[DIMS][DIMS];
 
-//    public Board(int playerColor, int opponentColor){
-//
-//    color = playerColor;
-//    oppColor = opponentColor;
-//}
-
     //Default constructor initializes a board full of "0"s
     public Board(){
         for(int i = 0; i < board.length; i++)
@@ -30,7 +24,7 @@ public class Board {
     }
 
 
-    private int getValue(int x, int y){
+    int getValue(int x, int y){
         return board[y][x];
     }
 
@@ -44,7 +38,7 @@ public class Board {
     }
 
     boolean placePiece(Move m, int color){
-        if(board[m.y][m.x] == 0 && m.x < 15 && m.x >= 0 && m.y >= 0 && m.y < 15) {
+        if(isValid(m) && board[m.y][m.x] == 0) {
             board[m.y][m.x] = color;
             return true;
         }
@@ -53,9 +47,14 @@ public class Board {
 
     //Function that prints the current state of the game board.
     public void printBoard(){
+        System.out.print("    ");
         for(int i = 0; i < board.length; i++) {
-            System.out.print(i + ": ");
-            if(i < 10)
+            System.out.print((char)(i + 'A') + " ");
+        }
+        System.out.println();
+        for(int i = 0; i < board.length; i++) {
+            System.out.print(i + 1 + ": ");
+            if(i < 9)
                 System.out.print(" ");
             for (int j = 0; j < board[0].length; j++)
                 System.out.print(board[i][j] + " ");
@@ -256,8 +255,75 @@ public class Board {
         return Math.abs(m.x - DIMS/2) + Math.abs(m.y - DIMS/2);
     }
 
+    public int numNeighbors(Move m){
+        int numN = 0;
+        int x = m.x;
+        int y = m.y;
+        if(!isValid(x, y))
+            return - 1;
+        if(isValid(x, y - 1) && getValue(x, y - 1) != 0){
+            numN++;
+        }
+        else if(isValid(x, y + 1) && getValue(x, y + 1) != 0){
+            numN++;
+        }
+        else if(isValid(x + 1, y + 1) && getValue(x + 1, y + 1) != 0){
+            numN++;
+        }
+        else if(isValid(x - 1, y + 1) && getValue(x - 1, y + 1) != 0){
+            numN++;
+        }
+        else if(isValid(x + 1, y - 1) && getValue(x + 1, y - 1) != 0){
+            numN++;
+        }
+        else if(isValid(x - 1, y - 1) && getValue(x - 1, y - 1) != 0){
+            numN++;
+        }
+        else if(isValid(x + 1, y) && getValue(x + 1, y) != 0){
+            numN++;
+        }
+        else if(isValid(x - 1, y) && getValue(x - 1, y) != 0){
+            numN++;
+        }
+        return numN;
+    }
+
+    public int numNeighbors(int x, int y){
+        int numN = 0;
+        if(!isValid(x, y))
+            return - 1;
+        if(isValid(x, y - 1) && getValue(x, y - 1) != 0){
+            numN++;
+        }
+        else if(isValid(x, y + 1) && getValue(x, y + 1) != 0){
+            numN++;
+        }
+        else if(isValid(x + 1, y + 1) && getValue(x + 1, y + 1) != 0){
+            numN++;
+        }
+        else if(isValid(x - 1, y + 1) && getValue(x - 1, y + 1) != 0){
+            numN++;
+        }
+        else if(isValid(x + 1, y - 1) && getValue(x + 1, y - 1) != 0){
+            numN++;
+        }
+        else if(isValid(x - 1, y - 1) && getValue(x - 1, y - 1) != 0){
+            numN++;
+        }
+        else if(isValid(x + 1, y) && getValue(x + 1, y) != 0){
+            numN++;
+        }
+        else if(isValid(x - 1, y) && getValue(x - 1, y) != 0){
+            numN++;
+        }
+        return numN;
+    }
+
     public boolean isValid(int x, int y){
         return x < DIMS && x >= 0 && y >= 0 && y < DIMS;
+    }
+    public boolean isValid(Move m){
+        return m.x < DIMS && m.x >= 0 && m.y >= 0 && m.y < DIMS;
     }
 
     public static void main(String args[]){
