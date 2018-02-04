@@ -26,7 +26,7 @@ public class Board {
     public Board(Board origBoard){
         for(int i = 0; i < board.length; i++)
             for (int j = 0; j < board[0].length; j++)
-                board[i][j] = origBoard.getValue(i, j);
+                board[i][j] = origBoard.getValue(j, i);
     }
 
 
@@ -54,6 +54,9 @@ public class Board {
     //Function that prints the current state of the game board.
     public void printBoard(){
         for(int i = 0; i < board.length; i++) {
+            System.out.print(i + ": ");
+            if(i < 10)
+                System.out.print(" ");
             for (int j = 0; j < board[0].length; j++)
                 System.out.print(board[i][j] + " ");
             System.out.println();
@@ -64,7 +67,7 @@ public class Board {
         int heuristic = 0;
         for(int len = 2; len < 5; len++){
             //multiplies by length to value longer sequences over shorter ones
-            heuristic += (findSequences(color, len) * len);
+            heuristic += (findSequences(color, len)* len * len);
         }
         //if there is a sequence of length 5, the game is won.  Heavily prioritized
         if((findSequences(color, 5)) > 0)
@@ -276,6 +279,7 @@ public class Board {
         b.placePiece(0, 10, 1);
         b.placePiece(1, 10, 1);
         b.placePiece(2, 10, 1);
+        b.placePiece(7, 10, 2);
         b.printBoard();
         System.out.println(b.findRDiagonalSeq(3, 2, 1, 3));
         System.out.println(b.findHorzSeq(4, 10, 1, 3));

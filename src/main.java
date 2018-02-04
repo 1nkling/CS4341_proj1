@@ -25,7 +25,7 @@ public class main {
                 continue;
             }
             p1.placePiece(m, false);
-            p1.buildTree();
+            //p1.buildTree();
             try {
                 makeMove("move_file", p1.getBestMove(), p1.name);
             }
