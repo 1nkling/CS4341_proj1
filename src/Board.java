@@ -44,6 +44,20 @@ public class Board {
         }
         return false;
     }
+    boolean replacePiece(int x, int y, int color){
+        if(x < 15 && x >= 0 && y >= 0 && y < 15) {
+            board[y][x] = color;
+            return true;
+        }
+        return false;
+    }
+    boolean replacePiece(Move m, int color){
+        if(isValid(m)) {
+            board[m.y][m.x] = color;
+            return true;
+        }
+        return false;
+    }
 
     //Function that prints the current state of the game board.
     public void printBoard(){
@@ -66,7 +80,7 @@ public class Board {
         int heuristic = 0;
         for(int len = 2; len < 5; len++){
             //multiplies by length to value longer sequences over shorter ones
-            heuristic += (findSequences(color, len)* len * len);
+            heuristic += (findSequences(color, len)* len * len * len);
         }
         //if there is a sequence of length 5, the game is won.  Heavily prioritized
         if((findSequences(color, 5)) > 0)

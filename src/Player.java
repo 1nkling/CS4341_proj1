@@ -18,6 +18,9 @@ public class Player {
     boolean placePiece(Move m, boolean isMaxPlayer){
         return mmTree.board.placePiece(m.x, m.y, isMaxPlayer?mmTree.maxPlayerColor:mmTree.minPlayerColor);
     }
+    boolean replacePiece(Move m, boolean isMaxPlayer){
+        return mmTree.board.replacePiece(m.x, m.y, isMaxPlayer?mmTree.maxPlayerColor:mmTree.minPlayerColor);
+    }
 
     //Function that implements the gomoka game
     void buildTree(int depth, boolean isMaxPlayer){

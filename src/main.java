@@ -7,7 +7,7 @@ import static java.lang.Thread.sleep;
  * Created by danso on 1/28/2018.
  */
 public class main {
-    private static final int depth = 1;
+    private static final int depth = 3;
     private static final String PLAYER1 = "g1";
     private static final String PLAYER2 = "g2";
     public static void main(String args[]){
@@ -56,7 +56,7 @@ public class main {
                     Move bestM = p1.getBestMove();
                     System.out.println("x: " + bestM.x + "  y: " + bestM.y);
                     makeMove("move_file", bestM, p1.name);
-                    p1.placePiece(bestM, true);
+                    p1.replacePiece(bestM, true);
                     p1.clearChildren();
                     try {
                         sleep(550);
